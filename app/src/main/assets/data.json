@@ -1,0 +1,30 @@
+{
+  "LETHAL_ALLERGENS": {
+    "ORZECHY/ARACHIDY": ["orzechy", "orzech", "orzeszki", "arachidowe", "ziemne", "fistaszki", "laskowe", "włoskie", "nerkowca", "pistacje", "migdały", "migdał", "pecan", "brazylijskie", "makadamia", "piniowe", "nerkowce", "pistacjowe", "cashew"],
+    "MLEKO/LAKTOZA": ["mleko", "mleka", "mlekiem", "laktoza", "serwatka", "kazeina", "kazeinian", "maślanka", "jogurt", "twaróg", "śmietana", "odtłuszczone", "pełne", "masło", "margaryna", "podpuszczka", "laktoalbumina", "laktoglobulina"],
+    "JAJA": ["jajka", "jajko", "jajo", "jaja", "białko jaja", "żółtko jaja", "albumina", "lizozym", "e1105", "globulina", "owomucyna", "witelina"],
+    "GLUTEN": ["gluten", "pszenica", "pszenny", "pszenna", "żyto", "żytni", "jęczmień", "jęczmienny", "owies", "owsiany", "orkisz", "kamut", "skrobia pszenna", "słód", "kuskus", "bulgur", "seitan", "semolina", "samopsza", "płaskurka"]
+  },
+  "OTHER_ALLERGENS": {
+    "SOJA": ["soja", "sojowy", "sojowa", "sojowe", "lecytyna sojowa", "izolat białka sojowego", "teksturowane białko", "tofu", "miso", "edamame", "natto", "tempeh"],
+    "RYBY/OWOCE MORZA": ["ryba", "ryby", "rybne", "tran", "żelatyna rybia", "surimi", "anchovies", "krewetki", "kraby", "homary", "raki", "skorupiaki", "małże", "ostrygi", "ośmiornica", "kalmary", "mięczaki"],
+    "GORCZYCA/SELER/ŁUBIN": ["gorczyca", "gorczycy", "musztarda", "gorczyca biała", "gorczyca czarna", "sarepska", "seler", "selera", "selerowy", "korzeń selera", "nać selera", "łubin", "łubinu"],
+    "SIARCZYNY": ["siarczyny", "dwutlenek siarki", "pirosiarczyn", "e220", "e221", "e222", "e223", "e224", "e226", "e227", "e228"]
+  },
+  "HARMFUL_SUBSTANCES": {
+    "TŁUSZCZE TRANS/PALMOWY": ["olej palmowy", "tłuszcz palmowy", "częściowo utwardzony", "całkowicie utwardzony", "tłuszcze utwardzone", "olej rzepakowy utwardzony", "frytura"],
+    "CUKIER/SŁODZIKI": ["syrop glukozowo-fruktozowy", "syrop glukozowy", "syrop fruktozowy", "cukier inwertowany", "aspartam", "acesulfam", "sacharyna", "sukraloza", "cyklaminian", "maltodextryna", "maltodekstryna"],
+    "KONSERWANTY": ["benzoesan sodu", "sorbinian potasu", "azotyn sodu", "azotan sodu", "butylohydroksyanizol", "bha", "bht", "e211", "e202", "e250"],
+    "WZMACNIACZE SMAKU": ["glutaminian sodu", "ekstrakt drożdżowy", "guanylan disodowy", "inozynian disodowy", "hvp", "hydrolizowane białko roślinne"],
+    "INNE SZKODLIWE": ["karagen", "fosforany", "difosforany", "trifosforany", "biel tytanowa", "e171", "dwutlenek tytanu"]
+  },
+  "E_NUMBER_DB": {
+    "E102": "Tartrazyna - b. szkodliwa", "E110": "Żółcień pomarańczowa - szkodliwa", 
+    "E122": "Azorubina - podejrzenie rakotwórczości", "E124": "Czerwień koszenilowa", 
+    "E129": "Czerwień Allura", "E133": "Błękit brylantowy", "E150C": "Karmel amoniakalny", 
+    "E171": "Dwutlenek tytanu - rakotwórczy", "E211": "Benzoesan sodu", 
+    "E250": "Azotyn sodu - b. szkodliwy", "E407": "Karagen - zapalenie jelit", 
+    "E450": "Difosforany - wypłukują wapń", "E621": "Glutaminian sodu", 
+    "E951": "Aspartam - neurotoksyczny", "E954": "Sacharyna", "E955": "Sukraloza"
+  }
+}

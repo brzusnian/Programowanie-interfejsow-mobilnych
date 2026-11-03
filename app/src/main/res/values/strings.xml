@@ -1,0 +1,9 @@
+
+<resources>
+    <string name="app_name">Skaner alergenów</string>
+    <string name="screen_title">Skaner alergenów</string>
+    <string name="camera_instruction">Skieruj aparat na skład produktu</string>
+    <string name="scan_button">Rozpocznij skanowanie</string>
+    <string name="results_title">Wyniki analizy</string>
+    <string name="results_placeholder">Tutaj pojawią się wykryte alergeny i dodatki E.</string>
+</resources>
