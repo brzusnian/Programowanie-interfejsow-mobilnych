@@ -1,30 +1,129 @@
 {
   "LETHAL_ALLERGENS": {
-    "ORZECHY/ARACHIDY": ["orzechy", "orzech", "orzeszki", "arachidowe", "ziemne", "fistaszki", "laskowe", "włoskie", "nerkowca", "pistacje", "migdały", "migdał", "pecan", "brazylijskie", "makadamia", "piniowe", "nerkowce", "pistacjowe", "cashew"],
-    "MLEKO/LAKTOZA": ["mleko", "mleka", "mlekiem", "laktoza", "serwatka", "kazeina", "kazeinian", "maślanka", "jogurt", "twaróg", "śmietana", "odtłuszczone", "pełne", "masło", "margaryna", "podpuszczka", "laktoalbumina", "laktoglobulina"],
-    "JAJA": ["jajka", "jajko", "jajo", "jaja", "białko jaja", "żółtko jaja", "albumina", "lizozym", "e1105", "globulina", "owomucyna", "witelina"],
-    "GLUTEN": ["gluten", "pszenica", "pszenny", "pszenna", "żyto", "żytni", "jęczmień", "jęczmienny", "owies", "owsiany", "orkisz", "kamut", "skrobia pszenna", "słód", "kuskus", "bulgur", "seitan", "semolina", "samopsza", "płaskurka"]
+    "ORZECHY/ARACHIDY": [
+      "orzechy", "orzech", "orzechów", "orzechami", "orzeszki",
+      "arachidowe", "ziemne", "fistaszki", "laskowe", "włoskie",
+      "nerkowca", "nerkowce", "pistacje", "pistacjowe",
+      "migdały", "migdał", "migdałowy", "pecan", "pekan",
+      "brazylijskie", "makadamia", "piniowe", "cashew"
+    ],
+    "MLEKO/LAKTOZA": [
+      "mleko", "mleka", "mlekiem", "mleczny", "mleczna", "mleczne",
+      "laktoza", "serwatka", "kazeina", "kazeinian",
+      "maślanka", "jogurt", "twaróg", "śmietana", "śmietanka",
+      "masło", "maślany", "podpuszczka", "laktoalbumina", "laktoglobulina"
+    ],
+    "JAJA": [
+      "jajka", "jajko", "jajo", "jaja", "jaj",
+      "białko jaja", "żółtko jaja", "masa jajowa", "jajeczny", "jajeczna", "jajeczne",
+      "albumina", "lizozym", "e1105", "globulina", "owomucyna", "witelina"
+    ],
+    "GLUTEN": [
+      "gluten", "glutenowy", "pszenica", "pszenny", "pszenna", "pszenne",
+      "żyto", "żytni", "żytnia", "żytnie", "jęczmień", "jęczmienny",
+      "owies", "owsiany", "owsiana", "owsiane", "orkisz", "orkiszowy",
+      "kamut", "skrobia pszenna", "słód", "słodowy", "kuskus", "bulgur",
+      "seitan", "semolina", "samopsza", "płaskurka", "pszenżyto"
+    ]
   },
   "OTHER_ALLERGENS": {
-    "SOJA": ["soja", "sojowy", "sojowa", "sojowe", "lecytyna sojowa", "izolat białka sojowego", "teksturowane białko", "tofu", "miso", "edamame", "natto", "tempeh"],
-    "RYBY/OWOCE MORZA": ["ryba", "ryby", "rybne", "tran", "żelatyna rybia", "surimi", "anchovies", "krewetki", "kraby", "homary", "raki", "skorupiaki", "małże", "ostrygi", "ośmiornica", "kalmary", "mięczaki"],
-    "GORCZYCA/SELER/ŁUBIN": ["gorczyca", "gorczycy", "musztarda", "gorczyca biała", "gorczyca czarna", "sarepska", "seler", "selera", "selerowy", "korzeń selera", "nać selera", "łubin", "łubinu"],
-    "SIARCZYNY": ["siarczyny", "dwutlenek siarki", "pirosiarczyn", "e220", "e221", "e222", "e223", "e224", "e226", "e227", "e228"]
+    "SOJA": [
+      "soja", "sojowy", "sojowa", "sojowe",
+      "lecytyna sojowa", "izolat białka sojowego", "teksturowane białko",
+      "tofu", "miso", "edamame", "natto", "tempeh"
+    ],
+    "RYBY/OWOCE MORZA": [
+      "ryba", "ryby", "rybny", "rybna", "rybne", "tran",
+      "żelatyna rybia", "surimi", "anchovies", "krewetki", "krewetka",
+      "kraby", "krab", "homary", "raki", "skorupiaki",
+      "małże", "ostrygi", "ośmiornica", "kalmary", "mięczaki", "ślimaki"
+    ],
+    "GORCZYCA/SELER/ŁUBIN": [
+      "gorczyca", "gorczycy", "gorczycowy", "musztarda",
+      "gorczyca biała", "gorczyca czarna", "sarepska",
+      "seler", "selera", "selerowy", "korzeń selera", "nać selera",
+      "łubin", "łubinu", "łubinowy"
+    ],
+    "SEZAM/TAHINI": [
+      "sezam", "sezamu", "sezamowy", "sezamowa", "sezamowe",
+      "tahini", "pasta sezamowa", "olej sezamowy"
+    ],
+    "SIARCZYNY": [
+      "siarczyny", "siarczyn", "dwutlenek siarki", "pirosiarczyn",
+      "e220", "e221", "e222", "e223", "e224", "e226", "e227", "e228"
+    ]
   },
   "HARMFUL_SUBSTANCES": {
-    "TŁUSZCZE TRANS/PALMOWY": ["olej palmowy", "tłuszcz palmowy", "częściowo utwardzony", "całkowicie utwardzony", "tłuszcze utwardzone", "olej rzepakowy utwardzony", "frytura"],
-    "CUKIER/SŁODZIKI": ["syrop glukozowo-fruktozowy", "syrop glukozowy", "syrop fruktozowy", "cukier inwertowany", "aspartam", "acesulfam", "sacharyna", "sukraloza", "cyklaminian", "maltodextryna", "maltodekstryna"],
-    "KONSERWANTY": ["benzoesan sodu", "sorbinian potasu", "azotyn sodu", "azotan sodu", "butylohydroksyanizol", "bha", "bht", "e211", "e202", "e250"],
-    "WZMACNIACZE SMAKU": ["glutaminian sodu", "ekstrakt drożdżowy", "guanylan disodowy", "inozynian disodowy", "hvp", "hydrolizowane białko roślinne"],
-    "INNE SZKODLIWE": ["karagen", "fosforany", "difosforany", "trifosforany", "biel tytanowa", "e171", "dwutlenek tytanu"]
+    "TŁUSZCZE TRANS/PALMOWY": [
+      "olej palmowy", "tłuszcz palmowy", "palmowy",
+      "częściowo utwardzony", "całkowicie utwardzony",
+      "tłuszcze utwardzone", "olej rzepakowy utwardzony",
+      "tłuszcze trans", "frytura"
+    ],
+    "CUKIER/SŁODZIKI": [
+      "syrop glukozowo-fruktozowy", "syrop glukozowy", "syrop fruktozowy",
+      "cukier inwertowany", "aspartam", "acesulfam", "acesulfam k",
+      "sacharyna", "sukraloza", "cyklaminian", "neotam",
+      "maltodextryna", "maltodekstryna", "ksylitol", "erytrytol"
+    ],
+    "KONSERWANTY": [
+      "benzoesan sodu", "sorbinian potasu", "azotyn sodu", "azotan sodu",
+      "butylohydroksyanizol", "bha", "bht", "e211", "e202", "e250",
+      "benzoesany", "sorbiniany", "azotyny"
+    ],
+    "WZMACNIACZE SMAKU": [
+      "glutaminian sodu", "glutaminian monosodowy", "ekstrakt drożdżowy",
+      "guanylan disodowy", "inozynian disodowy", "hvp",
+      "hydrolizowane białko roślinne", "e621", "e627", "e631"
+    ],
+    "INNE SZKODLIWE": [
+      "karagen", "fosforany", "difosforany", "trifosforany", "polifosforany",
+      "biel tytanowa", "e171", "dwutlenek tytanu"
+    ]
   },
   "E_NUMBER_DB": {
-    "E102": "Tartrazyna - b. szkodliwa", "E110": "Żółcień pomarańczowa - szkodliwa", 
-    "E122": "Azorubina - podejrzenie rakotwórczości", "E124": "Czerwień koszenilowa", 
-    "E129": "Czerwień Allura", "E133": "Błękit brylantowy", "E150C": "Karmel amoniakalny", 
-    "E171": "Dwutlenek tytanu - rakotwórczy", "E211": "Benzoesan sodu", 
-    "E250": "Azotyn sodu - b. szkodliwy", "E407": "Karagen - zapalenie jelit", 
-    "E450": "Difosforany - wypłukują wapń", "E621": "Glutaminian sodu", 
-    "E951": "Aspartam - neurotoksyczny", "E954": "Sacharyna", "E955": "Sukraloza"
+    "E102": "Tartrazyna - barwnik azowy, może wpływać na aktywność i skupienie uwagi u dzieci",
+    "E104": "Żółcień chinolinowa - barwnik",
+    "E110": "Żółcień pomarańczowa FCF - barwnik azowy",
+    "E120": "Koszenila, kwas karminowy, karminy - barwnik",
+    "E122": "Azorubina (karmoizyna) - barwnik azowy",
+    "E124": "Czerwień koszenilowa A (ponceau 4R) - barwnik azowy",
+    "E129": "Czerwień Allura AC - barwnik azowy",
+    "E131": "Błękit patentowy V - barwnik",
+    "E132": "Indygotyna - barwnik",
+    "E133": "Błękit brylantowy FCF - barwnik",
+    "E150A": "Karmel zwykły - barwnik",
+    "E150C": "Karmel amoniakalny - barwnik",
+    "E150D": "Karmel siarczynowo-amoniakalny - barwnik",
+    "E171": "Dwutlenek tytanu (biel tytanowa) - zakazany w żywności w UE jako dodatek",
+    "E200": "Kwas sorbowy - konserwant",
+    "E202": "Sorbinian potasu - konserwant",
+    "E211": "Benzoesan sodu - konserwant",
+    "E220": "Dwutlenek siarki - konserwant / przeciwutleniacz (alergen: siarczyny)",
+    "E221": "Siarczyn sodu - konserwant (alergen: siarczyny)",
+    "E222": "Wodorosiarczyn sodu - konserwant (alergen: siarczyny)",
+    "E223": "Pirosiarczyn sodu - konserwant (alergen: siarczyny)",
+    "E224": "Pirosiarczyn potasu - konserwant (alergen: siarczyny)",
+    "E226": "Siarczyn wapnia - konserwant (alergen: siarczyny)",
+    "E227": "Wodorosiarczyn wapnia - konserwant (alergen: siarczyny)",
+    "E228": "Wodorosiarczyn potasu - konserwant (alergen: siarczyny)",
+    "E250": "Azotyn sodu - konserwant (peklosól)",
+    "E251": "Azotan sodu - konserwant",
+    "E320": "Butylohydroksyanizol (BHA) - przeciwutleniacz",
+    "E321": "Butylohydroksytoluen (BHT) - przeciwutleniacz",
+    "E322": "Lecytyny - emulgator / przeciwutleniacz",
+    "E407": "Karagen - substancja zagęszczająca / stabilizator",
+    "E450": "Difosforany - regulator kwasowości / emulgator",
+    "E451": "Trifosforany - regulator kwasowości / emulgator",
+    "E452": "Polifosforany - regulator kwasowości / emulgator",
+    "E621": "Glutaminian monosodowy - wzmacniacz smaku",
+    "E627": "Guanylan disodowy - wzmacniacz smaku",
+    "E631": "Inozynian disodowy - wzmacniacz smaku",
+    "E950": "Acesulfam K - substancja słodząca",
+    "E951": "Aspartam - substancja słodząca (źródło fenyloalaniny)",
+    "E952": "Kwas cyklaminowy i jego sole - substancja słodząca",
+    "E954": "Sacharyna i jej sole - substancja słodząca",
+    "E955": "Sukraloza - substancja słodząca",
+    "E1105": "Lizozym - konserwant (pochodzenia jajecznego)"
   }
 }

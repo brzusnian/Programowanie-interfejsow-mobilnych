@@ -1,4 +1,3 @@
-
 package com.example.skaneralergenow
 
 import android.Manifest
@@ -9,25 +8,40 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCaptureException
+import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.text.TextRecognition
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var cameraPreview: PreviewView
+    private lateinit var scanButton: Button
+    private lateinit var dataManager: DataManager
+    private lateinit var detector: AllergenDetector
 
-    // Obsługa pytania o zgodę na korzystanie z aparatu
+    private var imageCapture: ImageCapture? = null
+    private var isScanning = false
+
+    private val textRecognizer by lazy {
+        TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+    }
+
     private val requestCameraPermission =
         registerForActivityResult(
             ActivityResultContracts.RequestPermission()
         ) { isGranted ->
-
             if (isGranted) {
                 startCamera()
             } else {
@@ -45,76 +59,42 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        // Obsługa marginesów ekranu
         ViewCompat.setOnApplyWindowInsetsListener(
             findViewById(R.id.main)
         ) { v, insets ->
-
             val systemBars = insets.getInsets(
                 WindowInsetsCompat.Type.systemBars()
             )
-
             v.setPadding(
                 systemBars.left,
                 systemBars.top,
                 systemBars.right,
                 systemBars.bottom
             )
-
             insets
         }
 
-        // Pobranie elementu podglądu kamery z interfejsu
+        dataManager = DataManager(this)
+        detector = AllergenDetector(dataManager)
+
         cameraPreview = findViewById(R.id.cameraPreview)
-
-        // Sprawdzenie uprawnień do aparatu
-        checkCameraPermission()
-
-        // Obsługa przycisku skanowania (tymczasowo)
-        val scanButton = findViewById<Button>(R.id.scanButton)
+        scanButton = findViewById(R.id.scanButton)
 
         scanButton.setOnClickListener {
-            Toast.makeText(
-                this,
-                "Podgląd kamery działa. OCR dodamy w kolejnym kroku.",
-                Toast.LENGTH_SHORT
-            ).show()
+            captureAndAnalyzeLabel()
         }
 
-        // TEST ODCZYTYWANIA DANYCH I WYKRYWANIA ALERGENÓW
-        try {
-
-            val dataManager = DataManager(this)
-            val detector = AllergenDetector(dataManager)
-
-            val testText = "Skład: mleko, cukier, orzechy, E102"
-
-            val result = detector.analyzeText(testText)
-
-            Log.i("TEST_SKANERA", "Tekst testowy: $testText")
-            Log.i("TEST_SKANERA", "Alergeny krytyczne: ${result.lethalAllergens}")
-            Log.i("TEST_SKANERA", "Pozostałe alergeny: ${result.otherAllergens}")
-            Log.i("TEST_SKANERA", "Substancje szkodliwe: ${result.harmfulSubstances}")
-            Log.i("TEST_SKANERA", "Numery E: ${result.eNumbers}")
-
-        } catch (e: Exception) {
-
-            Log.e("TEST_SKANERA", "Błąd podczas testowania!", e)
-        }
+        checkCameraPermission()
     }
 
-    // Sprawdzenie, czy użytkownik udzielił zgody na aparat
     private fun checkCameraPermission() {
-
         when {
             ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.CAMERA
             ) == PackageManager.PERMISSION_GRANTED -> {
-
                 startCamera()
             }
-
             else -> {
                 requestCameraPermission.launch(
                     Manifest.permission.CAMERA
@@ -123,57 +103,154 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Uruchomienie kamery za pomocą CameraX
     private fun startCamera() {
-
-        val cameraProviderFuture =
-            ProcessCameraProvider.getInstance(this)
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
         cameraProviderFuture.addListener({
-
             try {
-
                 val cameraProvider = cameraProviderFuture.get()
 
-                // Konfiguracja podglądu obrazu
                 val preview = Preview.Builder()
                     .build()
                     .also {
-                        it.surfaceProvider =
-                            cameraPreview.surfaceProvider
+                        it.surfaceProvider = cameraPreview.surfaceProvider
                     }
 
-                // Wybór tylnej kamery
-                val cameraSelector =
-                    CameraSelector.DEFAULT_BACK_CAMERA
+                imageCapture = ImageCapture.Builder()
+                    .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
+                    .build()
 
-                // Odłączenie poprzednich przypadków użycia kamery
+                val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+
                 cameraProvider.unbindAll()
-
-                // Podłączenie kamery do aktywności
                 cameraProvider.bindToLifecycle(
                     this,
                     cameraSelector,
-                    preview
+                    preview,
+                    imageCapture
                 )
 
-                Log.i("CAMERA", "Kamera została uruchomiona!")
-
+                Log.i("CAMERA", "Kamera i ImageCapture uruchomione.")
             } catch (e: Exception) {
-
-                Log.e(
-                    "CAMERA",
-                    "Nie udało się uruchomić kamery.",
-                    e
-                )
-
+                Log.e("CAMERA", "Nie udało się uruchomić kamery.", e)
                 Toast.makeText(
                     this,
                     "Nie udało się uruchomić aparatu.",
                     Toast.LENGTH_LONG
                 ).show()
             }
-
         }, ContextCompat.getMainExecutor(this))
+    }
+
+    @androidx.annotation.OptIn(androidx.camera.core.ExperimentalGetImage::class)
+    private fun captureAndAnalyzeLabel() {
+        val capture = imageCapture ?: run {
+            Toast.makeText(this, "Aparat nie jest gotowy.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (isScanning) return
+        isScanning = true
+        scanButton.isEnabled = false
+
+        capture.takePicture(
+            ContextCompat.getMainExecutor(this),
+            object : ImageCapture.OnImageCapturedCallback() {
+                override fun onCaptureSuccess(imageProxy: ImageProxy) {
+                    val mediaImage = imageProxy.image
+                    if (mediaImage == null) {
+                        imageProxy.close()
+                        resetScanState()
+                        return
+                    }
+
+                    val inputImage = InputImage.fromMediaImage(
+                        mediaImage,
+                        imageProxy.imageInfo.rotationDegrees
+                    )
+
+                    textRecognizer.process(inputImage)
+                        .addOnSuccessListener { visionText ->
+                            val extractedText = visionText.text
+                            Log.i("OCR_RESULT", "Rozpoznany tekst:\n$extractedText")
+
+                            if (extractedText.isBlank()) {
+                                Toast.makeText(
+                                    this@MainActivity,
+                                    "Nie wykryto tekstu na etykiecie.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            } else {
+                                val result = detector.analyzeText(extractedText)
+                                Log.i("ALLERGEN_RESULT", "Krytyczne: ${result.lethalAllergens}")
+                                Log.i("ALLERGEN_RESULT", "Inne: ${result.otherAllergens}")
+                                Log.i("ALLERGEN_RESULT", "Szkodliwe: ${result.harmfulSubstances}")
+                                Log.i("ALLERGEN_RESULT", "E-numery: ${result.eNumbers}")
+                                showResultDialog(extractedText, result)
+                            }
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("OCR_ERROR", "Błąd rozpoznawania tekstu", e)
+                            Toast.makeText(
+                                this@MainActivity,
+                                "Błąd OCR: ${e.localizedMessage}",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                        .addOnCompleteListener {
+                            imageProxy.close()
+                            resetScanState()
+                        }
+                }
+
+                override fun onError(exception: ImageCaptureException) {
+                    Log.e("CAMERA_CAPTURE", "Błąd robienia zdjęcia", exception)
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Nie udało się zrobić zdjęcia.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    resetScanState()
+                }
+            }
+        )
+    }
+
+    private fun showResultDialog(
+        rawText: String,
+        result: AllergenDetector.DetectionResult
+    ) {
+        val message = buildString {
+            appendLine("Alergeny krytyczne: ${result.lethalAllergens.ifEmpty { listOf("Brak") }.joinToString()}")
+            appendLine("Pozostałe alergeny: ${result.otherAllergens.ifEmpty { listOf("Brak") }.joinToString()}")
+            appendLine("Substancje szkodliwe: ${result.harmfulSubstances.ifEmpty { listOf("Brak") }.joinToString()}")
+            if (result.eNumbers.isNotEmpty()) {
+                appendLine("Numery E:")
+                result.eNumbers.forEach { (code, desc) ->
+                    appendLine("• $code — $desc")
+                }
+            } else {
+                appendLine("Numery E: Brak")
+            }
+            appendLine()
+            appendLine("Rozpoznany tekst:")
+            append(rawText.take(400))
+        }
+
+        AlertDialog.Builder(this)
+            .setTitle("Wynik skanowania etykiety")
+            .setMessage(message)
+            .setPositiveButton("OK", null)
+            .show()
+    }
+
+    private fun resetScanState() {
+        isScanning = false
+        scanButton.isEnabled = true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        textRecognizer.close()
     }
 }
